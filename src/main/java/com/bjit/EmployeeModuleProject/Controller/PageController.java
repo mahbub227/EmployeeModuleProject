@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bjit.EmployeeModuleProject.Exception.EmployeeNotFoundException;
@@ -23,11 +24,12 @@ public class PageController {
 		return mv;
 	}
 	
-	@RequestMapping(value= "/{employeeId}")
-	public ModelAndView showSingleProduct(@PathVariable("employeeId") int employeeId) throws EmployeeNotFoundException{
+
+	@RequestMapping(value= "/show")
+	public ModelAndView showSingleProduct(@RequestParam int id) throws EmployeeNotFoundException{
 		
-		ModelAndView mv= new ModelAndView("page");
-		Employee employee = employeeServiceImpl.findEmployee(employeeId);
+		ModelAndView mv= new ModelAndView("home");
+		Employee employee = employeeServiceImpl.findEmployee(id);
 		if(employee == null) throw new EmployeeNotFoundException();
 		
 		
@@ -37,5 +39,7 @@ public class PageController {
 		
 		return mv;
 	}
+	
+	
 	
 }

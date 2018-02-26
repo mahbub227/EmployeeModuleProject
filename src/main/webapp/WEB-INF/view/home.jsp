@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+ <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 <html>
 <head>
@@ -16,6 +16,7 @@
 <script type="text/javascript"
 	src="${path}/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${path}/jquery-boot.js"></script>
+<script type="text/javascript" src="${path}/mah.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
  
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
@@ -34,6 +35,8 @@
 			<%@include file="table.jsp"%></c:if>
 			<c:if test="${userClickCreate == true}">
 			<%@include file="create.jsp"%></c:if>
+			<c:if test="${userClickShowEmployee == true}">
+			<%@include file="singleEmployee.jsp"%></c:if>
 			
 			
 			<%@include file="./shared/footer.jsp"%>

@@ -24,10 +24,9 @@ $(function(){
 					var str = '';
 					str += '<a href="'
 							+ window.contextRoot
-							+ '/'
+							+ '/show?id='
 							+ row.employeeId
 							+ '">'+data+'</a>';
-
 					return str;
 				}
 				},
@@ -62,5 +61,6 @@ function fetchList(type){
 		}
 	});
 }
+
 
 

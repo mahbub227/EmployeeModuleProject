@@ -1,5 +1,5 @@
 
-
+<%@taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <div class="row">
 	<div class="col-xs-12">
 		<ol class="breadcrumb">
@@ -11,7 +11,8 @@
 </div>
 <sf:form method="post" modelAttribute="employee"
 	action="${contextRoot}/employee/create">
-	<div class="panel panel-default" method="POST" enctype="multipart/form-data">
+	<sf:hidden path="employeeId"/>
+	<div class="panel panel-default" >
 		<div class="panel-heading">
 			<input type="submit" name="submit" id="submit" value="Submit"
 				class="btn btn-primary" /> <a class="btn btn-danger" href="${path}">Discard</a>
@@ -52,8 +53,15 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<h1>Contact Information</h1>
-
-
+								<div class="form-group">
+								<label class="control-label col-md-4" for="workAddress">Work
+									Address</label>
+								<div class="col-md-8">
+									<sf:input type="text" path="workAddress" id="workAddress"
+										placeholder="" class="form-control" />
+									<sf:errors path="workAddress" cssClass="help-block" element="em" />
+								</div>
+							</div>
 							<div class="form-group">
 								<label class="control-label col-md-4" for="workMobile">Work
 									Mobile</label>

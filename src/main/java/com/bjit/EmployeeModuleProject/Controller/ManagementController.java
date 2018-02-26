@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bjit.EmployeeModuleProject.model.Employee;
 import com.bjit.EmployeeModuleProject.serviceImpl.EmployeeServiceImpl;
-import com.bjit.EmployeeModuleProject.util.FileUploadUtility;
 
 
 @Controller
@@ -27,6 +26,7 @@ public class ManagementController {
 
 	@Autowired
 	private EmployeeServiceImpl employeeServiceImpl;
+	private Employee employee;
 	
 	private static final Logger logger =LoggerFactory.getLogger(ManagementController.class);
 	
@@ -35,35 +35,28 @@ public class ManagementController {
 	public ModelAndView createEmployee(@RequestParam(name = "operation", required = false) String operation) {
 
 		ModelAndView mv = new ModelAndView("home");
-		mv.addObject("title", "Create Employee");
-		mv.addObject("userClickCreate", true);
-		Employee employee = new Employee();
-		mv.addObject("employee", employee);
+		
 
 		if (operation != null) {
 
 			if (operation.equals("employee")) {
+				mv.addObject("userClickHome", true);
 				mv.addObject("message", "New Product Added!");
 			}
 
+		}
+		else {
+			
+		
+			mv.addObject("userClickCreate", true);
+			Employee employee = new Employee();
+			mv.addObject("employee", employee);
 		}
 		return mv;
 	}
 	@RequestMapping(value="/create",method=RequestMethod.POST)
 public String handleEmployeeSubmission(@Valid @ModelAttribute("employee") Employee employee,BindingResult results, Model model,HttpServletRequest request) {
-		
-		
-	/*	if(employee.getEmployeeId()==0) {
-			new EmployeeValidator().validate(employee,results);
-		}
-		else {
-			if(!emplyee.getFile().getOriginalFilename().equals("")) {
-				new EmployeeValidator().validate(employee,results);
-			}
-		}*/
-		
-	
-		
+
 		if(results.hasErrors()) {
 			model.addAttribute("userClickCreate", true);
 			model.addAttribute("title","Create Employee");
@@ -83,6 +76,19 @@ public String handleEmployeeSubmission(@Valid @ModelAttribute("employee") Employ
 		
 		return "redirect:/create?operation=employee";
 	}
+	
+	@RequestMapping(value="/edit")
+	public ModelAndView editEmployee(@RequestParam int id) {
+		ModelAndView mv = new ModelAndView("home");
+		mv.addObject("userClickCreate", true);
+		Employee employee = employeeServiceImpl.findEmployee(id);
+		mv.addObject("employee", employee);
+		return mv;
+	}
+
+	
+	
+	
 
 	@ModelAttribute("employees")
 	public List<Employee> getEmployee() {
